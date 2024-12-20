@@ -1,0 +1,132 @@
+Question,Answer
+Maintenance Plan List ,"Use T Code - IP16; Following input would make your process faster:
+1) Maintenance Plan Category
+2) Maintenance Plan Sort field
+ "
+Task List ,"Use T Code - IA09 and Select Task list  type as  1)Functional location task list  2)Equipment task list 3)General task list.Following input would make your process faster:
+1) Work center
+2) Maintenance Strategy
+"
+Pending PM Notifications,"Use T Code - IW28 and Select Notification Status as   1) Outstanding 2)In Process
+Following input would make your process faster:
+1) Notification  type 
+2) Equipment or Func Location
+3) Work Center 
+4) Notification date"
+T Code for Notification Creation , IW21
+Notification type for GHCL ,"Following Notification type available for GHCL
+M1 - GENERAL NOTIFICATION
+M2 - BREAK DOWN NOTIF
+M3 - EQ. STREAM SHUT DOWN
+M4 - TOTAL PLANT SHUTDOWN
+M5 - DEFECTS IN CALIBRN
+M6 - CRITICAL OBSERVATION
+M7 - HISTORICAL NOTIF
+M8 - Safety & Env Jobs
+M9 - Motor Overhauling"
+Order type for GHCL ,"Following Order type available for GHCL
+PM01 GENERAL MAINT-MECHANICAL
+PM02 GENERAL MAINT-ELECTRICAL
+PM03 GENERAL MAINT-INSTRUMENTATION
+PM11 PRVENTIVE MAINT-MECHANICAL
+PM12 PREVENTIVE MAINT-ELECTRICAL
+PM13 PREVENTIVE MAINT-INSTRUMENTATION
+PM21 BREAK DOWN MAINT-MECHANICAL
+PM22 BREAK DOWN MAINT-ELECTRICAL
+PM23 BREAK DOWN MAINT-INSTRUMENTATION
+PM31 SHUT DOWN MAINT-MECHANICAL
+PM32 SHUT DOWN MAINT-ELECTRICAL
+PM33 SHUT DOWN MAINT-INSTRUMENTATION
+PM41 RUNNING MAINT-MECHANICAL
+PM42 MOTOR OVERHAULING
+PM43 RUNNING MAINT-INSTRUMENTATION
+PM51 PROCESS/OPERATION ORDER
+PM52 CALIBRATION ORDER
+PM53 CIVIL ORDER
+PM54 PROJECT ORDER
+PM55 MAINT. ORDER OTHERS
+PM56 HISTORICAL ORDERS
+PM58 Safety Jobs
+PM60 REFURBISHMENT ORDER
+PM70 Painting Order.
+PM90 ORDER FOR STATIONERY AND CONSUMABLES"
+T Code for Order creation without notification,"Use T Code for order creation without notification is IW31 and Select proper order type from drop down Following input :
+1)Functional location
+2)Equipment"
+T Code to check MTTR/MTBR,"Use T Code to check MTTR/MTBR for Equipment is MCJB Following input : 1) Equipment
+Use T Code to check MTTR/MTBR for Functional Location is MCJC
+Following input : 2)Functional location"
+How to check breakdown analysis report in SAP,"Use T Code - MCI7
+Note - Input Functional location in Functional location Field or  Input Equipment in Equipment Field or You may search it by pressing F4 Search Help"
+Equipment list t.code,"Use T Code - IH08 Following input would make your process faster: 1) Equipment category 
+2) Object Type
+3) Work Center 
+4) Maintenance Plant"
+T.code for Functional Location List,Use T Code - IH06 Following input would make your process faster: 1) Functional Location category 2) Functional Location Description3) Work Center 4) Maintenance Plant
+How to check Damage Analysis report in SAP,"Use T Code - MCI5 Note - Input Damage code in Damage code Field or  Input Cause of damage in Cause of damageField or You may search it by pressing F4 Search Help
+Following input would make your process faster:
+1)Functional Location 
+2) Equipment
+3) Notification Type"
+"How to find out Notification List Based on Object Part, Damage Code, Cause ","Use T Code - IW69 Following input would make your process faster:1) Functional Location 
+2) Equipment
+3) Notification Type 
+4) Damage Code
+5) Cause Code
+6) Object Part Code"
+Pending PM Order Confirmation List,"Use T Code - IW47 and Select Order Status as   1) In Process 2) Completed
+Following input would make your process faster:
+1) Order  type 
+2) Equipment or Func Location
+3) Work Center 
+4) Entry date"
+T.code for Order Confirmation,"Use T Code - IW41 
+Note - Input Order Number in Order Field "
+What is t code for PO Release,ME28
+T Code for Order Release ,Which Type of Order
+purchase order release t code,ME28
+what is my release code,Connect to IT Team
+PR type for Green Field,"Following PR types available for Green Field Procurement 
+GF1 - PR GF Capital Items
+GF5 - PR GF Capital Service Note - Use PR Tracking no as - PROJ- Green and Pur Group - P61"
+How to check Capital Budget Status in SAP ,Use T Code - S_ALR_87013558 Note - Input Project Code in Project Field or You may search it by pressing F4 Search Help
+T Code to check Capex Budget,Use T Code - S_ALR_87013558 Note - Input Project Code in Project Field or You may search it by pressing F4 Search Help
+Green Field budget status,Use T Code - S_ALR_87013558 Note - Input Project Code in Project Field or You may search it by pressing F4 Search Help
+Pending PM Orders,"Use T Code - IW38 and Select Order Status as  1) Outstanding 2)In Process
+Following input would make your process faster:
+1) Order type 
+2) Equipment or Func Location
+3) Work Center"
+How to check pending PM Order List,"Use T Code - IW38 and Select Order Status as        1) Outstanding 2)In Process
+Following input would make your process faster:
+1) Order type 
+2) Equipment or Func Location
+3) Work Center"
+Pending Preventive List ,"Use T Code - IW38 and Select Order Status as        1) Outstanding 2)In Process
+Following input would make your process faster:
+1) Order type 
+2) Equipment or Func Location
+3) Work Center"
+Pending PR List ,"T Code - ME5A Input relavant information in following fields:
+Tracking no in - "" Requirement tracking number"" 
+Plant - e.g. 1110 or 1120 or 1125
+Document Type - Select from F4"
+What is My release code,"Input your SAP ID and Type of approval i.e PO,PO,Reservation, Gate Pass, Material Inspection.User ID and Type of Approval Separate by Comma"
+"GHCLEFD , PO",RC 
+"GHCLEFD,Purchase order",RC 
+"IT07,reservation",R6
+How to check Project PR List,"Use T.code - ME5J, Input relavant information in following fields:
+Project:
+WBS Element:
+Tracking no in - "" Requirement tracking number"" 
+Plant - e.g. 1110 or 1120 or 1125
+Document Type - Select from F4"
+How to check Project PO List,"Use T.code - ME2J, Input relavant information in following fields:
+Project:
+WBS Element:
+Tracking no in - "" Requirement tracking number"" 
+Plant - e.g. 1110 or 1120 or 1125
+Document Type - Select from F4"
+Reservation List,"Use T.code - MB24, Input relavant information in following fields:
+Movement type: 261 - Order, 201- Cost center, 281- Project.
+Account assignment: Cost center, Network, Activity "
