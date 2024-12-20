@@ -1,0 +1,8 @@
+faiss-cpu
+langchain
+langchain_huggingface
+langchain_community
+deep_translator
+flask
+python-docx
+langchain-core-0.2.43
