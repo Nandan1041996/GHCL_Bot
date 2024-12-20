@@ -1,0 +1,102 @@
+[
+    {
+        "Prompt": "maintenance plan list ",
+        "Chat-Ans": "Answer : Use T Code - IP16; Following input would make your process faster:\n1) Maintenance Plan Category\n2) Maintenance Plan Sort field",
+        "Human-Ans": "udcoan"
+    },
+    {
+        "Prompt": "1",
+        "Chat-Ans": "Answer : Maintenance Plan Category is one of the input that would make your process faster when using T Code - IP16 for Maintenance Plan List.",
+        "Human-Ans": "sojc d"
+    },
+    {
+        "Prompt": "hello, provide information about reservation",
+        "Chat-Ans": "Hello! To access the reservation list, you can use the T.code - MB24. Please input the relevant information in the following fields: \n\n- Movement type: 261 (Order), 201 (Cost center), or 281 (Project)\n- Account assignment: Cost center, Network, or Activity",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "summarize all i asked you",
+        "Chat-Ans": "Answer: You asked about the following topics: \n1. GHCLEFD, PO (Answer: RC)\n2. Maintenance Plan List (Answer: Use T Code - IP16)\n3. GHCLEFD (Answer: Not Found initially, but later answered as RC)\n4. GHCLEFD (Answer: RC)\n5. GHCLEFD (Answer: RC)\n6. Maintenance Plan Sort field (Answer: Not Found)\n7. A summary of all your previous questions (This answer)",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "summarize all i asked you",
+        "Chat-Ans": "Answer: You asked about the following topics: \n1. GHCLEFD, PO (Answer: RC)\n2. Maintenance Plan List (Answer: Use T Code - IP16)\n3. GHCLEFD (Answer: Not Found initially, but later answered as RC)\n4. GHCLEFD (Answer: RC)\n5. GHCLEFD (Answer: RC)\n6. Maintenance Plan Sort field (Answer: Not Found)\n7. A summary of all your previous questions (This answer)",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "hooo",
+        "Chat-Ans": "Answer: Not Found.",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "maintenance plan list",
+        "Chat-Ans": "Answer: To find a list of maintenance plans, use T Code - IP16. For a faster process, input the following: 1) Maintenance Plan Category and 2) Maintenance Plan Sort field.",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "maintenance plan list",
+        "Chat-Ans": "Answer: To find a list of maintenance plans, use T Code - IP16. For a faster process, input the following: 1) Maintenance Plan Category and 2) Maintenance Plan Sort field.",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "hooo",
+        "Chat-Ans": "Answer: Not Found.",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": "xn mc"
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": ""
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": "dxk,sdk"
+    },
+    {
+        "Prompt": "notification type",
+        "Chat-Ans": "Answer: For GHCL, the following notification types are available: \nM1 - GENERAL NOTIFICATION\nM2 - BREAK DOWN NOTIF\nM3 - EQ. STREAM SHUT DOWN\nM4 - TOTAL PLANT SHUTDOWN\nM5 - DEFECTS IN CALIBRN\nM6 - CRITICAL OBSERVATION\nM7 - HISTORICAL NOTIF\nM8 - Safety & Env Jobs\nM9 - Motor Overhauling\nFor more information, please refer to the link: https://docs.google.com/spreadsheets/d/1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG/edit?gid=1319013326#gid=1319013326",
+        "Human-Ans": "dxk,sdk"
+    }
+]

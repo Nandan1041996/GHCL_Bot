@@ -1,0 +1,56 @@
+[
+    {
+        "question": "maintenance plan list ",
+        "answer": "Answer : Use T Code - IP16; Following input would make your process faster:\n1) Maintenance Plan Category\n2) Maintenance Plan Sort field",
+        "isCorrect": false,
+        "feedback": "udcoan"
+    },
+    {
+        "question": "1",
+        "answer": "Answer : Maintenance Plan Category is one of the input that would make your process faster when using T Code - IP16 for Maintenance Plan List.",
+        "isCorrect": false,
+        "feedback": "sojc d"
+    },
+    {
+        "question": "hello, provide information about reservation",
+        "answer": "Hello! To access the reservation list, you can use the T.code - MB24. Please input the relevant information in the following fields: \n\n- Movement type: 261 (Order), 201 (Cost center), or 281 (Project)\n- Account assignment: Cost center, Network, or Activity",
+        "isCorrect": true,
+        "feedback": ""
+    },
+    {
+        "question": "summarize all i asked you",
+        "answer": "Answer: You asked about the following topics: \n1. GHCLEFD, PO (Answer: RC)\n2. Maintenance Plan List (Answer: Use T Code - IP16)\n3. GHCLEFD (Answer: Not Found initially, but later answered as RC)\n4. GHCLEFD (Answer: RC)\n5. GHCLEFD (Answer: RC)\n6. Maintenance Plan Sort field (Answer: Not Found)\n7. A summary of all your previous questions (This answer)",
+        "isCorrect": true,
+        "feedback": ""
+    },
+    {
+        "question": "summarize all i asked you",
+        "answer": "Answer: You asked about the following topics: \n1. GHCLEFD, PO (Answer: RC)\n2. Maintenance Plan List (Answer: Use T Code - IP16)\n3. GHCLEFD (Answer: Not Found initially, but later answered as RC)\n4. GHCLEFD (Answer: RC)\n5. GHCLEFD (Answer: RC)\n6. Maintenance Plan Sort field (Answer: Not Found)\n7. A summary of all your previous questions (This answer)",
+        "isCorrect": true,
+        "feedback": ""
+    },
+    {
+        "question": "hooo",
+        "answer": "Answer: Not Found.",
+        "isCorrect": true,
+        "feedback": ""
+    },
+    {
+        "question": "maintenance plan list",
+        "answer": "Answer: To find a list of maintenance plans, use T Code - IP16. For a faster process, input the following: 1) Maintenance Plan Category and 2) Maintenance Plan Sort field.",
+        "isCorrect": true,
+        "feedback": ""
+    },
+    {
+        "question": "maintenance plan list",
+        "answer": "Answer: To find a list of maintenance plans, use T Code - IP16. For a faster process, input the following: 1) Maintenance Plan Category and 2) Maintenance Plan Sort field.",
+        "isCorrect": true,
+        "feedback": ""
+    },
+    {
+        "question": "hooo",
+        "answer": "Answer: Not Found.",
+        "isCorrect": true,
+        "feedback": ""
+    }
+]
