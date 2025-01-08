@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "midyear-pattern-444505-m8",
+  "private_key_id": "e4bcb24550e31be16ecdfba7811814603ff6c547",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCYuOyY5UtJTiFt\nA6nhotzY+j6o2liWJS74F8Uc8n6l5JhLHC5ALUswQAuWIkDGCGHv79KIEAJrKQGt\nJe4AvV8cYV0HREjne80a7TdfBacLwqvv3zy2q4gcpHpk8QfRxlbXgEETlyVNRlW+\nIuQl29rTKdo+XHX4nTMEeslaWU0Ckp2Q6pK9bvUPZ0isngm2dW0v21vrcJc92nRv\nQV3mzchp5On/sTdK6aQZaGIaBzg6zVkpMbob3xOSBjnVG/Ay2Hw8IzgVBnRCrs5n\nt4eN9Ky0n09IgEdRUAZg1UndQZmE2dn3a4e3JIOshDeUeRlxgSFi1QeO9TWwdt7E\n3aPHJGYPAgMBAAECggEASh1gMJkCDsqcXResj0QmsiPLWc1QtVjJMPv0HCawgJht\nsfG0nk980CccmFj6H0C9KqAzhvVh/xgw6JLiLDi6mf7EEz03tiL1+A3L09Dd7s6j\n+y5We/3FecT2Yts35L1AsqdarYOpxhUOkk3Dc3389YI3mBDt7V94fUGLSs3QmiDF\nm+A44Zfp8ghIe3w/mOE57rbahbch7rplJzknWSikv9U7uXkZ1HCqB5kungxb7GuU\nP1SNqodqOyjeiwKqcADDfA8FJcFzFLSpab90+hXkurY/YtkKhTJg+Vm0wwjlNx2H\nZNAqUPpnYvew9s1o1QZuR9pQe41kkZyAFYHVEhfhpQKBgQDRciyWUghCu1/1sy0n\n60WWrI0iTN9QLrkPDwOpdjlm4r0jOT7VDe5uXI5IK+IMZiOWnSCaCC9xsckGWYhh\nhcBmbbJYTwPI8aq5FcuC4YwC1qlIYegT/PKciE8eZmdVXbOOQqb9FlLz8DlmdrBL\nQerR8/QuIEyR7gWryIWqQRXPRQKBgQC6qxSzpPdrowRxQNK9O7pTVPryR20F3KW8\nywXgDDTapepaTYaELV61xRGGs3BQhEB4qyNotkVM9ecRu8ZiX0PWKbsIlaiC/zTJ\nsuAUW2D7apm21bhTaWHRqo7OPq0XnNvYRShLPWKnKN74dO0AYIYmK7cZfykagk1B\nBf7LEYV7QwKBgBFY14CLwstkIYqEEJVh0x2rpPTWURifBgzNPYxnklGHLgsgzqdu\nw/S4DcDEgbBtNT1gPjcDvoo4I2I3QChzn3/cTg0qXjHicjVqLLTmYWZKyTKJiWM+\nbAmy8HqgGKblX93Ef3guxSgXGWn3IprZFs3U2sCHRFBB2o5jyU5Una3RAoGAC441\nrN1Ed8RSrRQfN5mv8iKrmj3zsM408Ff9GB6JUxO8SzTLY/lPCJ+Xcyg+hq15ND8b\n5QqLhbUfRcjDAin1kBdrPZ/OG7Xita2+E2SIv2ec9mWKkJdQd+NADeJxYqnSLjQx\nx16YcdKk4uqSFVjkVQ6Vuh1WFQ8F60WMvVNrWPMCgYBRFiN76Y/f6lBOSAcQ05D3\nVc61qO6K289ZOx9ca3aJCUCaTpa6pY9umT31sreZALCL9fZvGP/oZ8h15PRdKQHj\nt445lO63zHlFt+B0upNGBWqrafzuWj4Bvfp8vaiQR1N8ql4TyZlGVp6LQkCjmY79\nlgwfGTHRHbf1VVsPjlHltQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "chatboat@midyear-pattern-444505-m8.iam.gserviceaccount.com",
+  "client_id": "102315700703548175899",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chatboat%40midyear-pattern-444505-m8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
