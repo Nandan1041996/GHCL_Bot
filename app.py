@@ -14,6 +14,7 @@ from docx import Document
 from langchain.docstore import document 
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
+from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from langchain.prompts import PromptTemplate
 from langchain_groq import ChatGroq
@@ -29,6 +30,8 @@ from flask import Flask, request, render_template, redirect, url_for, session, f
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(24)  # Required for flash messages
+
+SERVICE_ACCOUNT_FILE = r'C:\Users\G01889\OneDrive\Documents\llm_project\Quest_Ans_For_All_Ext-txt-pdf.csv-1xlsx-1\midyear-pattern-444505-m8-e4bcb24550e3.json'
 
 # credentials path
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"C:\Users\G01889\OneDrive\Documents\llm_project\Quest_Ans_For_All_Ext-txt-pdf.csv-1xlsx-1\client_secret_820887058416-7c10c17qjh42739ca2hc0bn3cn40fdc0.apps.googleusercontent.com.json"
@@ -47,6 +50,10 @@ if not os.path.exists(answer_file_path):
 
 # Define scopes for Google Drive API
 SCOPES = ['https://www.googleapis.com/auth/drive','https://www.googleapis.com/auth/spreadsheets']
+
+# Shared credentials for all users
+credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+
 
 def authenticate_and_list_files():
     """Authenticate with Google Drive API and list files."""
@@ -324,13 +331,15 @@ def chatpage():
         # Allowed file extensions
         allowed_extensions = ('.xlsx', '.docx','.pdf','.txt','.jpg','.jpeg','.png','.csv')
 
-        credentials = authenticate_and_list_files()
+        # credentials = authenticate_and_list_files()
         # Build Google Drive API client
         service = build('drive', 'v3', credentials=credentials)
         # FOLDER_ID = '1LSgEkDLL8ulP7Ep-qvbqI2XbKQXf2oui' 
-        FOLDER_ID = '1SNEOT6spU3wD7AVJI_w53bfMDig2Ss4l'
+        FOLDER_ID = '1LSgEkDLL8ulP7Ep-qvbqI2XbKQXf2oui'
         # Query files within the folder
         query = f"'{FOLDER_ID}' in parents"
+
+        print('service:',service)
 
         if service:
             files = []
@@ -350,7 +359,7 @@ def chatpage():
 
                 if not next_page_token:
                     break
-
+            print('files::',files)
             # Print all files in the folder
             if files:
                 files_with_id_dict = {}
@@ -523,8 +532,8 @@ def get_ans_from_csv():
             with open(os.path.join('pkl_files',pickle_file_name),mode='rb') as f:
                 vector_index = pickle.load(f)
         else:
-            credentials = authenticate_and_list_files()
-            documents_id = '1Cak9V_QRjEbnlJzeEe8uj-VN864IrBpt'
+            # credentials = authenticate_and_list_files()
+            documents_id = '1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG'
             data = load_file_data(documents_id, credentials)
             if data:
                 # text_splitter = RecursiveCharacterTextSplitter(chunk_size=700,chunk_overlap=100)
@@ -544,7 +553,7 @@ def get_ans_from_csv():
         prompt =  PromptTemplate(template=prompt_temp,input_variables=['context','chat_history','question'])
         # function is used to get answer
         chain = get_chain(llm,prompt,vector_index,chat_memory)
-        res_dict = get_answer(chain,query_text,email)
+        res_dict = get_answer(chain,query_text,email,chat_memory)
         que_ans_dict = {'doc': doc_file, query_text:res_dict}
         res_ans =que_ans_dict[query_text][selected_language]
 
@@ -567,29 +576,6 @@ def save_answers():
     del[data]
     gc.collect()
     return jsonify({'message': 'Answer data saved successfully'}), 200
-
-# @app.route('/save_feedback', methods=['POST'])
-# def save_feedback():
-#     """Save user feedback."""
-#     print('email:',session['email'])
-#     feedback_data = request.json
-#     print('feedback_data::',feedback_data)
-#     #   sql_query = f"""INSERT INTO public.user_que_ans (email_id, answer)
-#     #                         VALUES (%s, %s);
-#     #                     """
-#     # Initialize feedback file if it doesn't exist
-#     if not os.path.exists(feedback_file_path):
-#         with open(feedback_file_path, 'w') as f:
-#             json.dump([], f)  # Start with an empty list
-    
-#     print('feedback_file_path::',feedback_file_path)
-#     with open(feedback_file_path, 'r+') as f:
-#         feedbacks = json.load(f)
-#         feedbacks.append(feedback_data)  # Append new feedback
-#         f.seek(0)  # Move to the beginning of the file
-#         json.dump(feedbacks, f, indent=4)  # Save updated feedback
-
-#     return jsonify({'message': 'Feedback saved successfully'}), 200
 
 @app.route('/save_feedback', methods=['POST'])
 def save_feedback():
@@ -661,7 +647,7 @@ def clear():
 
 
 if __name__=='__main__':
-    app.run()
+    app.run('0.0.0.0',port=5011)
 
 
 
