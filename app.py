@@ -1,4 +1,6 @@
+import sys
 import gc
+# https://docs.google.com/spreadsheets/d/1Cak9V_QRjEbnlJzeEe8uj-VN864IrBpt/edit?gid=1319013326#gid=1319013326
 import json
 import pickle
 import io
@@ -118,7 +120,7 @@ def load_file_data(file_id, credentials):
             # convert text to document
             data = [document.Document(page_content=text)]
 
-        del[service,file_metadata,mime_type,file_content]
+        del service,file_metadata,mime_type,file_content
         gc.collect()
         return data
      
@@ -173,7 +175,7 @@ def signup():
                 flash("Code has been sent to register email id.", "info")
                 # Redirect to the validate_mail route with email as a parameter
                 return redirect(url_for('validate_mail', email=email))
-            del[password_pattern,token,subject,body,message,msg]
+            del password_pattern,token,subject,body,message,msg
             gc.collect()
         else:
             flash("Email Already Exist.", "info")
@@ -202,7 +204,7 @@ def validate_mail():
             session.pop('token')
 
             flash("Signup successful! Please login.", "success")
-            del[password,name,encPassword,sql]
+            del password,name,encPassword,sql
             gc.collect()
 
             return redirect(url_for('login_page'))
@@ -254,7 +256,7 @@ def reset_password():
             connection.close()
 
             flash("Password has been reset successfully. You can now log in.", "success")
-            del[encPassword,sql]
+            del encPassword,sql
             gc.collect()
             return redirect(url_for('login_page'))
     return render_template('reset_password.html')
@@ -282,14 +284,14 @@ def forgot_password():
             message = f"Subject: {subject}\n\n{body}"
             msg = send_mail(email, message)
             
-            del[reset_token,subject,body,message]
+            del reset_token,subject,body,message
             gc.collect()
 
             if msg == 0:
                 flash("Code has been sent to registered email id.", "info")
                 return redirect(url_for('validate_mail_reset_password', email=email))
             
-        del[email,sql,rows]
+        del email,sql,rows
         gc.collect()
     return render_template('forgot_password.html')
 
@@ -321,7 +323,7 @@ def login_page():
                 flash("Invalid Password", "error")
             del [decPassword]
             gc.collect()
-        del[email,password,sql,rows]
+        del email,password,sql,rows
         gc.collect()
     return render_template('login.html')
 
@@ -340,8 +342,8 @@ def chatpage():
         # credentials = authenticate_and_list_files()
         # Build Google Drive API client
         service = build('drive', 'v3', credentials=credentials)
-        # FOLDER_ID = '1LSgEkDLL8ulP7Ep-qvbqI2XbKQXf2oui' 
-        FOLDER_ID = '1LSgEkDLL8ulP7Ep-qvbqI2XbKQXf2oui11111'
+        FOLDER_ID = '1SNEOT6spU3wD7AVJI_w53bfMDig2Ss4l' 
+        # FOLDER_ID = '1LSgEkDLL8ulP7Ep-qvbqI2XbKQXf2oui11111'
 
         try:
             folder_metadata = service.files().get(fileId=FOLDER_ID, fields='id').execute()
@@ -411,7 +413,7 @@ def upload_file():
         flash('File uploaded successfully','success')
     else:
         flash(f'Invalid file type. Only {", ".join(allowed_extensions)} files are allowed.','info')
-    del[allowed_extensions,file]
+    del allowed_extensions,file
     gc.collect()
     return redirect(url_for('index'))
 
@@ -427,7 +429,7 @@ def delete_file(filename):
     pkl_file_name = filename.split('.')[0]+'.pkl'
     if os.path.exists(os.path.join(pkl_file_name)):                
         os.remove(os.path.join(pkl_file_name))
-    del [file_path,pkl_file_name]
+    del file_path,pkl_file_name
     gc.collect()
     return redirect(url_for('index'))
 
@@ -507,7 +509,7 @@ Human: {question}
 
 embedings = HuggingFaceBgeEmbeddings()
 # model
-#llm = ChatGroq(model='llama-3.1-70b-versatile',api_key='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',temperature=0,max_retries=2)
+# llm = ChatGroq(model='llama-3.1-70b-versatile',api_key='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',temperature=0,max_retries=2)
 
 @app.route('/ask', methods=['POST','GET'])
 def get_ans_from_csv():
@@ -528,7 +530,6 @@ def get_ans_from_csv():
     # doc_file = request.form.get('selected_file')
     selected_language = request.form.get('selected_language')
     # query_text = query_text.lower()
-
     if query_text :
         #to load pickle file 
         doc_file = 'anc.xlsx'
@@ -538,7 +539,8 @@ def get_ans_from_csv():
                 vector_index = pickle.load(f)
         else:
             # credentials = authenticate_and_list_files()
-            documents_id = '1hxi7y7uRS9gGwA9rBJE7ihLZJqGpLtS_'
+            # documents_id = '1hxi7y7uRS9gGwA9rBJE7ihLZJqGpLtS_'
+            documents_id = '1Cak9V_QRjEbnlJzeEe8uj-VN864IrBpt'
             data = load_file_data(documents_id, credentials)
 
             if data == 'Not Found':
@@ -558,6 +560,7 @@ def get_ans_from_csv():
         # model
         llm = ChatGroq(model='llama-3.1-70b-versatile',api_key='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',temperature=0,max_retries=2)
         chat_memory = ConversationSummaryBufferMemory(llm=llm,memory_key='chat_history',return_messages=True)
+        # chat_memory = ConversationSummaryBufferMemory(llm=llm,memory_key='chat_history',return_messages=True)
         prompt =  PromptTemplate(template=prompt_temp,input_variables=['context','chat_history','question'])
         # function is used to get answer
         chain = get_chain(llm,prompt,vector_index,chat_memory)
@@ -565,7 +568,7 @@ def get_ans_from_csv():
         que_ans_dict = {'doc': doc_file, query_text:res_dict}
         res_ans =que_ans_dict[query_text][selected_language]
 
-        del [vector_index,chain,llm,res_dict,que_ans_dict,prompt]
+        del vector_index,chain,llm,res_dict,que_ans_dict,prompt
         gc.collect()
         
         return jsonify({'answer': res_ans,'question':query_text})
@@ -581,7 +584,7 @@ def save_answers():
         answers.append(data)  # Append new data
         f.seek(0)  # Move to the beginning of the file
         json.dump(answers, f, indent=4)  # Save updated data
-    del[data]
+    del data
     gc.collect()
     return jsonify({'message': 'Answer data saved successfully'}), 200
 
@@ -633,7 +636,7 @@ def clear():
 
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0',port=5011)
+    app.run()
 
 
 
