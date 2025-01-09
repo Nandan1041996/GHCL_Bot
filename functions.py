@@ -6,6 +6,7 @@ import psycopg2
 from deep_translator import GoogleTranslator
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
 import io
+import json
 import fitz  # PyMuPDF
 import pytesseract
 from pdf2image import convert_from_path
@@ -73,7 +74,8 @@ def is_scanned_pdf_from_memory(file_content):
 ## convert scanned pdf and text embedded pdf contained images into text:
 def convert_pdf_to_text(file_content):
     # Set path to Tesseract executable if it's not in PATH
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+    # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
     poppler_path = r"D:\G01889\Documents\Downloads\Release-24.08.0-0\poppler-24.08.0\Library\bin"
     
     if is_scanned_pdf_from_memory(file_content):
@@ -115,6 +117,12 @@ def convert_pdf_to_text(file_content):
                     if image_str:
                         all_text += image_str + '\n'
 
+            del[page,page_text,image_list]
+            gc.collect()
+            
+        del[pdf_file]
+        gc.collect()
+
     return all_text
 
 def sql_connection():
@@ -125,7 +133,7 @@ def sql_connection():
     curr = connection.cursor()
     return curr,connection
 
-import json
+
 
 
 # chat_memory = {}
@@ -154,10 +162,8 @@ def get_answer(chain,query_text,email,chat_memory):
 
     Returns : Answer
     '''
-
     # answer_dict = chain.invoke({'question': query_text,'chat_history':memory})
     answer_dict = chain.invoke({'question': query_text,'chat_history':chat_memory})
-    print('answer_dict:::',answer_dict)
     # to store chat in database 
     
     # insert if email id not present and update if email id present 
@@ -168,15 +174,12 @@ def get_answer(chain,query_text,email,chat_memory):
     conn.close()
     if len(res) !=0:
         ans_lst = eval(res[0][0])
-        print('ans_lst:',ans_lst)
         # final_answer_dict = convert_to_serializable_format(answer_dict)
         ans_dict = {}
         ans_dict['question'] = answer_dict['question']
         ans_dict['answer'] = answer_dict['answer']
 
-        # print('final_answer_dict::',final_answer_dict)
         ans_lst.append(ans_dict)
-        print('ans_lst_1:',ans_lst)
         
         final_answer_json = json.dumps(ans_lst)
         # to excape the single quote , pgadmin gives error 
@@ -189,7 +192,7 @@ def get_answer(chain,query_text,email,chat_memory):
         curr.execute(sql_query)
         conn.commit()
         conn.close()
-        del[ans_lst,ans_dict,ans_lst,final_answer_json,final_answer_json_escaped]
+        del[ans_lst,ans_dict,final_answer_json,final_answer_json_escaped]
         gc.collect()
     else:
         ans_lst = []
@@ -228,6 +231,7 @@ def get_answer(chain,query_text,email,chat_memory):
     return res_dict
 
 def send_mail(receiver_email_id,message):
+    
     try:
         sender_email_id = 'mayurnandanwar@ghcl.co.in'
         password = 'uvhr zbmk yeal ujhv'
