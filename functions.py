@@ -1,6 +1,7 @@
 import textwrap
 import gc
 import re
+import sys
 import smtplib
 import psycopg2
 from deep_translator import GoogleTranslator
@@ -22,7 +23,7 @@ def wrap_text_preserve_new_line(text, width=110):
     wrapped_lines = [textwrap.fill(line, width=width) for line in lines]
     wrapped_text = '\n'.join(wrapped_lines)
 
-    del[lines,wrapped_lines]
+    del lines,wrapped_lines
     gc.collect()
     return wrapped_text 
 
@@ -34,7 +35,7 @@ def get_chain(llm,prompt,vector_index,chat_memory):
                                                 return_source_documents=False,
                                                 combine_docs_chain_kwargs={'prompt': prompt})
       
-    del [llm,prompt,vector_index,chat_memory]
+    del llm,prompt,vector_index,chat_memory
     gc.collect()
     return chain
 
@@ -75,7 +76,7 @@ def is_scanned_pdf_from_memory(file_content):
 def convert_pdf_to_text(file_content):
     # Set path to Tesseract executable if it's not in PATH
     pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
-    # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
+    # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract'
     poppler_path = r"D:\G01889\Documents\Downloads\Release-24.08.0-0\poppler-24.08.0\Library\bin"
     
     if is_scanned_pdf_from_memory(file_content):
@@ -117,17 +118,17 @@ def convert_pdf_to_text(file_content):
                     if image_str:
                         all_text += image_str + '\n'
 
-            del[page,page_text,image_list]
+            del page,page_text,image_list
             gc.collect()
-            
-        del[pdf_file]
+
+        del pdf_file
         gc.collect()
 
     return all_text
 
 def sql_connection():
-    connection_string = 'postgres://postgres:postgres@localhost:5432/ChatBot'
-    # connection_string = 'postgres://postgres:postgres@128.91.31.73:5432/chatbotdb'
+    # connection_string = 'postgres://postgres:postgres@localhost:5432/ChatBot'
+    connection_string = 'postgres://postgres:postgres@128.91.31.73:5432/chatbotdb'
     connection = psycopg2.connect(connection_string)
 
     curr = connection.cursor()
@@ -164,7 +165,6 @@ def get_answer(chain,query_text,email,chat_memory):
     '''
     # answer_dict = chain.invoke({'question': query_text,'chat_history':memory})
     answer_dict = chain.invoke({'question': query_text,'chat_history':chat_memory})
-    # to store chat in database 
     
     # insert if email id not present and update if email id present 
     sql_query = f"""select answer from  public.user_que_ans where email_id = '{email}';"""
@@ -192,7 +192,7 @@ def get_answer(chain,query_text,email,chat_memory):
         curr.execute(sql_query)
         conn.commit()
         conn.close()
-        del[ans_lst,ans_dict,final_answer_json,final_answer_json_escaped]
+        del ans_lst,ans_dict,final_answer_json,final_answer_json_escaped
         gc.collect()
     else:
         ans_lst = []
@@ -211,7 +211,7 @@ def get_answer(chain,query_text,email,chat_memory):
         conn.commit()
         conn.close()
 
-        del[ans_lst,ans_dict,sql_query, final_answer_json,final_answer_json_escaped]
+        del ans_lst,ans_dict,sql_query, final_answer_json,final_answer_json_escaped
         gc.collect()
 
     res_dict = {'en':answer_dict['answer']}
@@ -226,7 +226,7 @@ def get_answer(chain,query_text,email,chat_memory):
         res =wrap_text_preserve_new_line(translated)
         res_dict[tgt_lang] = res
 
-    del [chain,answer_dict,tgt_lang_lst,answer]
+    del chain,answer_dict,tgt_lang_lst,answer
     gc.collect()
     return res_dict
 
@@ -247,7 +247,7 @@ def send_mail(receiver_email_id,message):
         # terminating the session
         s.quit()
 
-        del[sender_email_id,password]
+        del sender_email_id,password
         gc.collect()
         return 0
     except:
