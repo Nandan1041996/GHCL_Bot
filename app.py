@@ -12,6 +12,7 @@ import pytesseract
 from PIL import Image
 from docx import Document
 from langchain.docstore import document 
+from googleapiclient.errors import HttpError
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.oauth2 import service_account
@@ -27,11 +28,12 @@ from langchain.memory import ConversationSummaryBufferMemory
 from functions import get_chain,get_answer,convert_pdf_to_text,sql_connection, send_mail
 from exception import *
 from flask import Flask, request, render_template, redirect, url_for, session, flash
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+# pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(24)  # Required for flash messages
-
-SERVICE_ACCOUNT_FILE = r'C:\Users\G01889\OneDrive\Documents\llm_project\Quest_Ans_For_All_Ext-txt-pdf.csv-1xlsx-1\midyear-pattern-444505-m8-e4bcb24550e3.json'
+SERVICE_ACCOUNT_FILE = '/home/bharat/AI_Agent/ai_question_answer/GHCL_Bot/service_account.json'
+# SERVICE_ACCOUNT_FILE = r'C:\Users\G01889\OneDrive\Documents\llm_project\Quest_Ans_For_All_Ext-txt-pdf.csv-1xlsx-1\midyear-pattern-444505-m8-e4bcb24550e3.json'
 
 # credentials path
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"C:\Users\G01889\OneDrive\Documents\llm_project\Quest_Ans_For_All_Ext-txt-pdf.csv-1xlsx-1\client_secret_820887058416-7c10c17qjh42739ca2hc0bn3cn40fdc0.apps.googleusercontent.com.json"
@@ -54,7 +56,6 @@ SCOPES = ['https://www.googleapis.com/auth/drive','https://www.googleapis.com/au
 # Shared credentials for all users
 credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
-
 def authenticate_and_list_files():
     """Authenticate with Google Drive API and list files."""
     try:
@@ -73,8 +74,7 @@ def authenticate_and_list_files():
         return credentials  # Return credentials for further use
 
     except Exception as e:
-        print(f"An error occurred: {e}")
-        return None
+        return jsonify({'error':'Credential Not Found'})
 
 def load_file_data(file_id, credentials):
     """Load data from the selected file based on its type (CSV, Excel, PDF)."""
@@ -86,7 +86,6 @@ def load_file_data(file_id, credentials):
         # Get the content of the file
         file_content = service.files().get_media(fileId=file_id).execute()
         
-        # print('file_cont::',file_content)
         # Check the file type
         if mime_type == 'application/vnd.ms-excel' or mime_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
             print("Processing Excel file...")
@@ -111,7 +110,6 @@ def load_file_data(file_id, credentials):
         elif mime_type=='text/plain' or mime_type=='text/csv':
             # convert text to document
             data = [document.Document(file_content.decode('utf-8'))]
-            print('data::',data)
 
         elif mime_type=='image/png' or mime_type=='image/jpeg':
             # Convert binary content to an image
@@ -119,11 +117,13 @@ def load_file_data(file_id, credentials):
             text = pytesseract.image_to_string(image)
             # convert text to document
             data = [document.Document(page_content=text)]
+
+        del[service,file_metadata,mime_type,file_content]
+        gc.collect()
         return data
      
     except Exception as e:
-        print(f"Error loading file: {e}")
-        return None
+        return "Not Found"
     
 @app.route('/')
 def index():
@@ -173,8 +173,8 @@ def signup():
                 flash("Code has been sent to register email id.", "info")
                 # Redirect to the validate_mail route with email as a parameter
                 return redirect(url_for('validate_mail', email=email))
-             
-
+            del[password_pattern,token,subject,body,message,msg]
+            gc.collect()
         else:
             flash("Email Already Exist.", "info")
     return render_template('signup.html')
@@ -190,7 +190,6 @@ def validate_mail():
             password = session['password']
             name = session['name']
             encPassword = base64.b64encode(password.encode("utf-8"))
-            print('encPassword::',encPassword)
             sql = "INSERT INTO public.register_table (username, password, email_id) VALUES (%s, %s, %s);"
             curr,connection = sql_connection()
             curr.execute(sql, (name, encPassword, email))
@@ -203,6 +202,9 @@ def validate_mail():
             session.pop('token')
 
             flash("Signup successful! Please login.", "success")
+            del[password,name,encPassword,sql]
+            gc.collect()
+
             return redirect(url_for('login_page'))
         else:
             # return "Invalid token. Please try again.", 400
@@ -245,7 +247,6 @@ def reset_password():
         # Check password strength using regex
         else:
             encPassword = base64.b64encode(new_password.encode("utf-8"))
-            print('encoded_pass::',encPassword)
             sql = "UPDATE public.register_table SET password = %s WHERE email_id = %s;"
             curr, connection = sql_connection()
             curr.execute(sql,(encPassword,email))
@@ -253,8 +254,9 @@ def reset_password():
             connection.close()
 
             flash("Password has been reset successfully. You can now log in.", "success")
+            del[encPassword,sql]
+            gc.collect()
             return redirect(url_for('login_page'))
-
     return render_template('reset_password.html')
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
@@ -280,10 +282,15 @@ def forgot_password():
             message = f"Subject: {subject}\n\n{body}"
             msg = send_mail(email, message)
             
+            del[reset_token,subject,body,message]
+            gc.collect()
+
             if msg == 0:
                 flash("Code has been sent to registered email id.", "info")
                 return redirect(url_for('validate_mail_reset_password', email=email))
-
+            
+        del[email,sql,rows]
+        gc.collect()
     return render_template('forgot_password.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -297,7 +304,6 @@ def login_page():
         curr.execute(sql)
         rows  = curr.fetchall()
         connection.close()
-        print(rows)
 
         if  len(rows) == 0 :
             flash("Email Id Not Found.", "error")
@@ -308,15 +314,15 @@ def login_page():
                 return redirect(url_for('login_page'))
     
             decPassword = base64.b64decode(rows[0][-2]).decode("utf-8")
-            print('password::',base64.b64encode(password.encode("utf-8")))
-            print('decPassword::',decPassword)
-
             if password == decPassword:
                 session['email'] = email
                 return redirect(url_for('chatpage'))
             else:
                 flash("Invalid Password", "error")
-        
+            del [decPassword]
+            gc.collect()
+        del[email,password,sql,rows]
+        gc.collect()
     return render_template('login.html')
 
 
@@ -335,12 +341,18 @@ def chatpage():
         # Build Google Drive API client
         service = build('drive', 'v3', credentials=credentials)
         # FOLDER_ID = '1LSgEkDLL8ulP7Ep-qvbqI2XbKQXf2oui' 
-        FOLDER_ID = '1LSgEkDLL8ulP7Ep-qvbqI2XbKQXf2oui'
+        FOLDER_ID = '1LSgEkDLL8ulP7Ep-qvbqI2XbKQXf2oui11111'
+
+        try:
+            folder_metadata = service.files().get(fileId=FOLDER_ID, fields='id').execute()
+        except HttpError as e:
+            if e.resp.status == 404:
+                raise FolderNotAvailable()
+            else:
+                raise e  # Re-raise other HttpError exceptions
+
         # Query files within the folder
         query = f"'{FOLDER_ID}' in parents"
-
-        print('service:',service)
-
         if service:
             files = []
             next_page_token = None
@@ -359,11 +371,9 @@ def chatpage():
 
                 if not next_page_token:
                     break
-            print('files::',files)
             # Print all files in the folder
             if files:
                 files_with_id_dict = {}
-                print("Files found in the folder:")
                 for file in files:
                     files_with_id_dict[file['name']] = file['id']
                     print(f"File Name: {file['name']}, File ID: {file['id']}")
@@ -373,13 +383,12 @@ def chatpage():
                 # Get the list of files with allowed extensions
                 files = [os.path.basename(f) for f in [key for key,val in files_with_id_dict.items()]if f.endswith(allowed_extensions)]
                 
-                del[allowed_extensions]
-                gc.collect()
                 return render_template('chatpage.html', files=files)
             else:
-                raise FileNotAvailable()
-    except FileNotAvailable as exe:
-        return exe
+                raise FolderNotAvailable()
+    except FolderNotAvailable as exe:
+        # flash('FolderNotAvailable','error')
+        return jsonify({'error': str(exe)}), 404
 
 @app.route('/uploads', methods=['POST'])
 def upload_file():
@@ -498,12 +507,8 @@ Human: {question}
 
 embedings = HuggingFaceBgeEmbeddings()
 # model
-llm = ChatGroq(model='llama-3.1-70b-versatile',api_key='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',temperature=0,max_retries=2)
+#llm = ChatGroq(model='llama-3.1-70b-versatile',api_key='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',temperature=0,max_retries=2)
 
-chat_memory = ConversationSummaryBufferMemory(llm=llm,memory_key='chat_history',return_messages=True)
-
-embedings = HuggingFaceBgeEmbeddings()
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=700,chunk_overlap=100)
 @app.route('/ask', methods=['POST','GET'])
 def get_ans_from_csv():
     ''' this function is used to get answer from given csv.
@@ -533,23 +538,26 @@ def get_ans_from_csv():
                 vector_index = pickle.load(f)
         else:
             # credentials = authenticate_and_list_files()
-            documents_id = '1Oxmd_ivmsq01ZE2_SnvXsYYEASNfCCSG'
+            documents_id = '1hxi7y7uRS9gGwA9rBJE7ihLZJqGpLtS_'
             data = load_file_data(documents_id, credentials)
-            if data:
-                # text_splitter = RecursiveCharacterTextSplitter(chunk_size=700,chunk_overlap=100)
+
+            if data == 'Not Found':
+                res_ans = "Failed to load file from google drive.Please connect with Team Member"
+                flash(res_ans, "error")
+                return jsonify({'answer': res_ans,'question':query_text})
+
+            else:
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=700,chunk_overlap=100)
                 docs = text_splitter.split_documents(data)
-                # embedings = HuggingFaceBgeEmbeddings()
-                # if pickle file not available
                 
                 vector_index = FAISS.from_documents(docs, embedding=embedings)
                 if not os.path.isfile(os.path.join('pkl_files',pickle_file_name)):
                     with open(os.path.join('pkl_files',pickle_file_name),mode='wb') as f:
                         pickle.dump(vector_index,f)
-            else:
-                res_ans = "Failed to load file data."
-                return jsonify({'answer': res_ans})
+                
         # model
         llm = ChatGroq(model='llama-3.1-70b-versatile',api_key='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',temperature=0,max_retries=2)
+        chat_memory = ConversationSummaryBufferMemory(llm=llm,memory_key='chat_history',return_messages=True)
         prompt =  PromptTemplate(template=prompt_temp,input_variables=['context','chat_history','question'])
         # function is used to get answer
         chain = get_chain(llm,prompt,vector_index,chat_memory)
@@ -559,7 +567,7 @@ def get_ans_from_csv():
 
         del [vector_index,chain,llm,res_dict,que_ans_dict,prompt]
         gc.collect()
-
+        
         return jsonify({'answer': res_ans,'question':query_text})
     else:
         return redirect(url_for('index'))
@@ -581,31 +589,23 @@ def save_answers():
 def save_feedback():
     """Save user feedback."""
     email= session['email']
-    print('email::',email)
     feedback_data = request.json
-    print('feedback_data::',feedback_data)
 
     sql_query = f"""select feedback from public.user_que_ans where email_id = '{email}';"""
-    print(sql_query)
     curr,conn = sql_connection()
     curr.execute(sql_query)
     res = curr.fetchall()
     conn.close()
-    print('res:',res)
     if res[0][0] is None:
         feed_back_lst = [feedback_data]
         feedback_json = json.dumps(feed_back_lst)
-        print('feedback_json::',feedback_json)
         sql_query = f"update public.user_que_ans set feedback = '{feedback_json}' where email_id = '{email}';"
         curr,conn = sql_connection()
         curr.execute(sql_query)
         conn.commit()
         conn.close()
     else:
-        print('res::',res)
         ans_lst = json.loads(res[0][0])
-        print('type:',type(ans_lst))
-        print('ans_lst::',ans_lst)
         ans_lst.append(feedback_data)
         feedback_json = json.dumps(ans_lst)
         # to excape the single quote , pgadmin gives error 
@@ -619,22 +619,8 @@ def save_feedback():
         conn.commit()
         conn.close()
 
-
-    
-    # # Initialize feedback file if it doesn't exist
-    # if not os.path.exists(feedback_file_path):
-    #     with open(feedback_file_path, 'w') as f:
-    #         json.dump([], f)  # Start with an empty list
-    
-    # print('feedback_file_path::',feedback_file_path)
-    # with open(feedback_file_path, 'r+') as f:
-    #     feedbacks = json.load(f)
-    #     feedbacks.append(feedback_data)  # Append new feedback
-    #     f.seek(0)  # Move to the beginning of the file
-    #     json.dump(feedbacks, f, indent=4)  # Save updated feedback
-
     return jsonify({'message': 'Feedback saved successfully'}), 200
-# Generate a random reset token
+
 
 
 @app.route('/clear', methods=['POST'])
@@ -647,7 +633,7 @@ def clear():
 
 
 if __name__=='__main__':
-    app.run('0.0.0.0',port=5011)
+    app.run(host='0.0.0.0',port=5011)
 
 
 
