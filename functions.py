@@ -76,7 +76,7 @@ def is_scanned_pdf_from_memory(file_content):
 def convert_pdf_to_text(file_content):
     # Set path to Tesseract executable if it's not in PATH
     pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
-    # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract'
+    # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
     poppler_path = r"D:\G01889\Documents\Downloads\Release-24.08.0-0\poppler-24.08.0\Library\bin"
     
     if is_scanned_pdf_from_memory(file_content):
